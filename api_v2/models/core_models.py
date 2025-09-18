@@ -855,6 +855,8 @@ class Tag(Base):
 
     MEMBER_TIME_LIMIT_CONSTRAINT_KEY = "member_time_limit"
     OWNER_TIME_LIMIT_CONSTRAINT_KEY = "owner_time_limit"
+    MEMBER_TIME_LIMIT_SCOPE_CONSTRAINT_KEY = "member_time_limit_scope"
+    OWNER_TIME_LIMIT_SCOPE_CONSTRAINT_KEY = "owner_time_limit_scope"
     REQUIRE_MEMBER_REASON_CONSTRAINT_KEY = "require_member_reason"
     REQUIRE_OWNER_REASON_CONSTRAINT_KEY = "require_owner_reason"
     DISALLOW_SELF_ADD_MEMBERSHIP_CONSTRAINT_KEY = "disallow_self_add_membership"
@@ -901,6 +903,20 @@ class Tag(Base):
             + "associated with this app",
             validator=lambda value: isinstance(value, bool),
             coalesce=lambda a, b: a or b,
+        ),
+        MEMBER_TIME_LIMIT_SCOPE_CONSTRAINT_KEY: TagConstraint(
+            name="Membership time limit scope",
+            description="Specify whether membership time limits apply to 'both' users and roles, "
+            + "'users_only', or 'roles_only'. Defaults to 'both' for backward compatibility.",
+            validator=lambda value: isinstance(value, str) and value in ["both", "users_only", "roles_only"],
+            coalesce=lambda a, b: "both" if a != b else a,  # Conflict resolution: default to "both"
+        ),
+        OWNER_TIME_LIMIT_SCOPE_CONSTRAINT_KEY: TagConstraint(
+            name="Ownership time limit scope",
+            description="Specify whether ownership time limits apply to 'both' users and roles, "
+            + "'users_only', or 'roles_only'. Defaults to 'both' for backward compatibility.",
+            validator=lambda value: isinstance(value, str) and value in ["both", "users_only", "roles_only"],
+            coalesce=lambda a, b: "both" if a != b else a,  # Conflict resolution: default to "both"
         ),
     }
 
