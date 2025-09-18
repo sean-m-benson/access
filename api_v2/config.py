@@ -72,6 +72,13 @@ class Settings(BaseSettings):
     # App Creator
     app_creator_id: Optional[str] = Field(default=None, alias="APP_CREATOR_ID")
 
+    # Feature Flags
+    enable_entity_specific_constraints: bool = Field(
+        default=False,
+        alias="ENABLE_ENTITY_SPECIFIC_CONSTRAINTS",
+        description="Enable entity-specific tag constraints (separate constraints for users vs roles)"
+    )
+
     # Sentry Configuration
     flask_sentry_dsn: Optional[str] = Field(default=None, alias="FLASK_SENTRY_DSN")
     react_sentry_dsn: Optional[str] = Field(default=None, alias="REACT_SENTRY_DSN")

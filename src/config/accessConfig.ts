@@ -3,6 +3,7 @@ export interface AccessConfig {
   DEFAULT_ACCESS_TIME: string;
   NAME_VALIDATION_PATTERN: string;
   NAME_VALIDATION_ERROR: string;
+  ENABLE_ENTITY_SPECIFIC_CONSTRAINTS: boolean;
 }
 
 // use the globally-injected ACCESS_CONFIG from src/globals.d.ts, typed to AccessConfig interface
